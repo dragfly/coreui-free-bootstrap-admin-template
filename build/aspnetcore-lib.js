@@ -89,7 +89,7 @@ const generateDistDocument = (html, type) => {
 
   // Specific changes for Razor views
   if (type === 'cshtml') {
-    html = '@{ Layout = ""; }\r\n' + html;
+    html = '@page\n@{ Layout = ""; }\r\n' + html;
 
     // Replace links with Razor link Tag Helper
     html = html.replace(/(<a.*)href="(.*)\.(.*?)"/g, getLink);
