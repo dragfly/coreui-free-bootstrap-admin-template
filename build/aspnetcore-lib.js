@@ -92,7 +92,7 @@ const generateDistDocument = (html, type) => {
     html = '@page\n@{ Layout = ""; }\r\n' + html;
 
     // Replace links with Razor link Tag Helper
-    html = html.replace(/(<a.*)href="(.*)\.(.*?)"/g, getLink);
+    //html = html.replace(/(<a.*)href="(.*)\.(.*?)"/g, getLink);
 
     // Escape @ character in version comment
     html = html.replace(/\* @(version|link) /g, '* @@$1 ');
