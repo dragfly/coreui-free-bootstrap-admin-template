@@ -29,10 +29,10 @@ const folderRegEx = new RegExp(`(["'])(${sourceFolderString})/.*?\\1`, 'ig');
 // Adapted from vendors.js walkSync
 const getFolderTreeFiles = (dir, fileExt = '*', filelist = []) => {
   dir = dir.replace(/\\/g, '/');
-  fs.readdirSync(dir).filter(f => fileExt === '*' ? true : path.extname(f) === fileExt).forEach(file => {
+  fs.readdirSync(dir).forEach(file => {
     filelist = fs.statSync(path.join(dir, file)).isDirectory()
       ? getFolderTreeFiles(path.join(dir, file), fileExt, filelist)
-      : filelist.concat(path.posix.join(dir, file));
+      : filelist.concat(fileExt === '*' || path.extname(file) === fileExt ? path.posix.join(dir, file) : []);
   });
   return filelist;
 }
@@ -207,6 +207,7 @@ const generateHtmlFiles = (folder) => {
   let htmlFiles = getFolderTreeFiles(folder, '.html');
 
   htmlFiles.forEach(htmlFile => {
+    console.log(htmlFile)
     generateDistHtmlFile(htmlFile);
   });
 };
